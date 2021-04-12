@@ -1,0 +1,28 @@
+# ---------------------------- #
+# Reload                       #
+# ---------------------------- #
+# sxhkd
+shift + alt + Escape
+    pkill -USR1 -x sxhkd
+
+
+# ---------------------------- #
+# Applications                 #
+# ---------------------------- #
+# browser
+shift + alt + b
+    firefox
+
+
+# ----------------------------- #
+# Buttons                       #
+# ----------------------------- #
+XF86Audio{Raise,Lower}Volume
+    amixer set Master 5%{+,-}; \
+    pkill -RTMIN+20 dwmblocks
+XF86AudioMute
+    amixer sset 'Master' toggle; \
+    pkill -RTMIN+20 dwmblocks
+XF86MonBrightness{Up,Down}
+    xbacklight {-inc,-dec} 10; \
+    pkill -RTMIN+10 dwmblocks

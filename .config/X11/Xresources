@@ -1,0 +1,10 @@
+Xft.dpi: 120
+
+dwm.normbgcolor: #4c566a
+dwm.selbgcolor: #2e3440
+
+dwm.normfgcolor:
+dwm.selfgcolor:
+
+dwm.normbordercolor: #3b4252
+dwm.selbordercolor: #4c566a

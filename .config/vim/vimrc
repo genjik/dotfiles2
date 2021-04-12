@@ -1,0 +1,130 @@
+"---------------------------------------"
+" Clean up                              "
+"---------------------------------------"
+set viminfofile=$XDG_CACHE_HOME/vim/viminfo
+let g:netrw_home = $XDG_DATA_HOME."/vim"
+set runtimepath=$XDG_CONFIG_HOME/vim,$VIMRUNTIME,$XDG_CONFIG_HOME/vim/after
+
+
+"---------------------------------------"
+" Vim-plug                              "
+"---------------------------------------"
+call plug#begin('$XDG_CONFIG_HOME/vim/plugged')
+"programming
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'sheerun/vim-polyglot'
+"airline
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+"file searching
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+"icons
+Plug 'ryanoasis/vim-devicons'
+"colorscheme
+Plug 'joshdick/onedark.vim'
+Plug 'sainnhe/gruvbox-material'
+call plug#end()
+
+
+"---------------------------------------"
+" Basic stuff                           "
+"---------------------------------------"
+syntax on
+set wildmenu
+set nu relativenumber
+set encoding=utf-8
+set tabstop=4 softtabstop=4
+set shiftwidth=4
+set expandtab
+set smartindent
+set smarttab
+set updatetime=50
+
+set splitbelow
+set splitright
+
+filetype plugin indent on
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
+
+"---------------------------------------"
+" Customization                         "
+"---------------------------------------"
+"true colors
+set termguicolors
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+"colomn and cursor
+set colorcolumn=80
+highlight ColorColumn ctermbg=0 guibg=lightgrey
+set signcolumn=yes
+set cursorline
+
+let g:airline_powerline_fonts = 1
+
+"set background=light
+"let g:gruvbox_material_background = 'soft'
+"let g:airline_theme='gruvbox_material'
+"colorscheme gruvbox-material
+
+colorscheme onedark
+let g:airline_theme='onedark'
+
+
+"---------------------------------------"
+" Key bindings                          "
+"---------------------------------------"
+let mapleader=" "
+"fzf
+nnoremap <C-p> :Files<CR>
+nnoremap <C-g> :GFiles<CR>
+nnoremap <leader>f :Rg<CR>
+"move around windows
+nnoremap <leader>h :wincmd h<CR>
+nnoremap <leader>j :wincmd j<CR>
+nnoremap <leader>k :wincmd k<CR>
+nnoremap <leader>l :wincmd l<CR>
+nnoremap <leader>w :wincmd w<CR>
+
+
+"---------------------------------------"
+" Vim-polyglot                          "
+"---------------------------------------"
+"golang
+let g:go_highlight_extra_types = 1
+let g:go_highlight_functions = 1
+let g:go_auto_sameids = 1
+
+
+"---------------------------------------"
+" Coc                                   "
+"---------------------------------------"
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+inoremap <silent><expr> <TAB>
+    \ pumvisible() ? "\<C-n>" :
+    \ <SID>check_back_space() ? "\<TAB>" :
+    \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+inoremap <silent><expr> <C-@> coc#refresh()
+
+"diagnostics
+nmap <silent> <leader>[ <Plug>(coc-diagnostic-prev)
+nmap <silent> <leader>] <Plug>(coc-diagnostic-next)
+nnoremap <silent> <leader>ge  :CocList diagnostics<CR>
+"go-to navigation
+nmap <leader>gd <Plug>(coc-definition)
+nmap <leader>gy <Plug>(coc-type-definition)
+nmap <leader>gi <Plug>(coc-implementation)
+nmap <leader>gr <Plug>(coc-references)
+nmap <leader>rn <Plug>(coc-rename)
+nnoremap <buffer> <leader>cr :CocRestart
+"use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>

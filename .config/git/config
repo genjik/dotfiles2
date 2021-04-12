@@ -1,0 +1,11 @@
+[user]
+	email = matchanovgr@gmail.com
+	name = Genjik
+[core]
+	editor = vim
+[alias]
+	co = checkout
+	br = branch
+	ci = commit
+	st = status
+    lo = log --oneline
